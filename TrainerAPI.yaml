@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: Trainer API coding challenge
   version: 0.0.1
@@ -10,6 +10,7 @@ info:
 paths:
   /trainer:
     post:
+      operationId: createTrainer
       summary: Create a new trainer.
       requestBody:
         description: A trainer record with required information
@@ -34,6 +35,7 @@ paths:
                 $ref: '#/components/schemas/Trainer'
   /trainer/{id}:
     get:
+      operationId: getTrainer
       summary: Get a trainer by ID.
       parameters:
       - name: id
