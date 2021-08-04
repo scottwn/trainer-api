@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Trainer API coding challenge
+  description: |
+    This API is used to create and retrieve records of trainers.
+  contact:
+    name: Scott Wyman Neagle
+    email: wymnea@protonmail.com
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /trainer:
+    post:
+      summary: Create a new trainer.
+      operationId: create_trainer
+      requestBody:
+        description: A trainer record with required information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trainer'
+            example:
+              email: trainer@campgladiator.com
+              phone: "5125125120"
+              first_name: Fearless
+              last_name: Contender
+        required: true
+      responses:
+        "201":
+          description: Successfully created a new trainer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trainer'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /trainer/{id}:
+    get:
+      summary: Get a trainer by ID.
+      operationId: get_trainer
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the requested trainer record
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: A trainer record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trainer'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    Trainer:
+      required:
+      - email
+      - first_name
+      - last_name
+      - phone
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone:
+          maximum: 9999999999
+          minimum: 1000000000
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        id:
+          type: string
+      example:
+        phone: 1720745371
+        last_name: last_name
+        id: id
+        first_name: first_name
+        email: ""
+
