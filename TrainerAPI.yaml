@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: Trainer API coding challenge
+  version: 0.0.1
+  description: >
+    This API is used to create and retrieve records of trainers.
+  contact:
+    name: Scott Wyman Neagle
+    email: wymnea@protonmail.com
+paths:
+  /trainer:
+    post:
+      summary: Create a new trainer.
+      requestBody:
+        description: A trainer record with required information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trainer'
+            example:
+              {
+                "email" : "trainer@campgladiator.com",
+                "phone" : "5125125120",
+                "first_name": "Fearless",
+                "last_name": "Contender"
+              }
+        required: true
+      responses:
+        '201':
+          description: Successfully created a new trainer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trainer'
+  /trainer/{id}:
+    get:
+      summary: Get a trainer by ID.
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the requested trainer record
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A trainer record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trainer'
+components:
+  schemas:
+    Trainer:
+      type: object
+      required:
+      - email
+      - phone
+      - first_name
+      - last_name
+      properties:
+        email:
+          type: string
+          format: email
+        phone:
+          type: integer
+          minimum: 1000000000
+          maximum: 9999999999
+        first_name:
+          type: string
+        last_name:
+          type: string
+        id:
+          type: string
+
+
+
